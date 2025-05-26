@@ -15,7 +15,7 @@ import java.util.List;
  * Extiende {@link JpaRepository} para operaciones CRUD básicas y {@link JpaSpecificationExecutor}
  * para permitir consultas dinámicas utilizando Specifications (criterios de JPA).
  *
- * @author [Tu Nombre/Nombre del Equipo]
+ * @author Juan J. Tornero
  * @version 1.0
  * @since 2024-05-26
  */

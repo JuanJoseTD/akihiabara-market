@@ -16,7 +16,7 @@ import java.util.Map;
  * Esta clase utiliza {@link ControllerAdvice} para centralizar el manejo de excepciones
  * en todos los controladores de la aplicación.
  *
- * @author [Tu Nombre/Nombre del Equipo]
+ * @author Juan J. Tornero
  * @version 1.0
  * @since 2024-05-26
  */

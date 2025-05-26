@@ -1,0 +1,179 @@
+2025-05-27 00:04:46.015800+02:00 database: flush
+org.h2.message.DbException: Error General : "org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]"
+General error: "org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]" [50000-224]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.message.DbException.convert(DbException.java:407)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:1546)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at org.h2.mvstore.FileStore.storeBuffer(FileStore.java:1527)
+	at org.h2.mvstore.FileStore.lambda$serializeAndStore$3(FileStore.java:1432)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Error General : "org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]"
+General error: "org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]" [50000-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 12 more
+Caused by: org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.DataUtils.writeFully(DataUtils.java:478)
+	at org.h2.mvstore.SingleFileStore.writeFully(SingleFileStore.java:67)
+	at org.h2.mvstore.SingleFileStore.writeFully(SingleFileStore.java:28)
+	at org.h2.mvstore.RandomAccessStore.writeChunk(RandomAccessStore.java:366)
+	at org.h2.mvstore.RandomAccessStore.writeChunk(RandomAccessStore.java:28)
+	at org.h2.mvstore.FileStore.storeBuffer(FileStore.java:1524)
+	... 6 more
+Caused by: java.io.IOException: El volumen para un archivo ha sido alterado externamente, por lo que el archivo abierto ya no es válido
+	at java.base/sun.nio.ch.FileDispatcherImpl.pwrite0(Native Method)
+	at java.base/sun.nio.ch.FileDispatcherImpl.pwrite(FileDispatcherImpl.java:81)
+	at java.base/sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:135)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:102)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:72)
+	at java.base/sun.nio.ch.FileChannelImpl.writeInternal(FileChannelImpl.java:1026)
+	at java.base/sun.nio.ch.FileChannelImpl.write(FileChannelImpl.java:1007)
+	at org.h2.mvstore.DataUtils.writeFully(DataUtils.java:474)
+	... 11 more
+2025-05-27 00:05:11.753974+02:00 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Error General : "Error General : ""org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]""\000aGeneral error: ""org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]"" [50000-224]"
+General error: "Error General : ""org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]""\000aGeneral error: ""org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]"" [50000-224]" [50000-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.engine.Database.throwLastBackgroundException(Database.java:1817)
+	at org.h2.engine.SessionLocal.close(SessionLocal.java:890)
+	at org.h2.jdbc.JdbcConnection.close(JdbcConnection.java:391)
+	at com.zaxxer.hikari.pool.PoolBase.quietlyCloseConnection(PoolBase.java:137)
+	at com.zaxxer.hikari.pool.HikariPool.lambda$closeConnection$1(HikariPool.java:444)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.h2.message.DbException: Error General : "org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]"
+General error: "org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]" [50000-224]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.message.DbException.convert(DbException.java:407)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:122)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:1546)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:371)
+	at org.h2.mvstore.FileStore.storeBuffer(FileStore.java:1527)
+	at org.h2.mvstore.FileStore.lambda$serializeAndStore$3(FileStore.java:1432)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	... 3 more
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Error General : "org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]"
+General error: "org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]" [50000-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 12 more
+Caused by: org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.DataUtils.writeFully(DataUtils.java:478)
+	at org.h2.mvstore.SingleFileStore.writeFully(SingleFileStore.java:67)
+	at org.h2.mvstore.SingleFileStore.writeFully(SingleFileStore.java:28)
+	at org.h2.mvstore.RandomAccessStore.writeChunk(RandomAccessStore.java:366)
+	at org.h2.mvstore.RandomAccessStore.writeChunk(RandomAccessStore.java:28)
+	at org.h2.mvstore.FileStore.storeBuffer(FileStore.java:1524)
+	... 6 more
+Caused by: java.io.IOException: El volumen para un archivo ha sido alterado externamente, por lo que el archivo abierto ya no es válido
+	at java.base/sun.nio.ch.FileDispatcherImpl.pwrite0(Native Method)
+	at java.base/sun.nio.ch.FileDispatcherImpl.pwrite(FileDispatcherImpl.java:81)
+	at java.base/sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:135)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:102)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:72)
+	at java.base/sun.nio.ch.FileChannelImpl.writeInternal(FileChannelImpl.java:1026)
+	at java.base/sun.nio.ch.FileChannelImpl.write(FileChannelImpl.java:1007)
+	at org.h2.mvstore.DataUtils.writeFully(DataUtils.java:474)
+	... 11 more
+2025-05-27 00:05:11.754993+02:00 jdbc[11]: exception
+org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
+The database has been closed [90098-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.engine.Database.checkPowerOff2(Database.java:498)
+	at org.h2.engine.Database.checkPowerOff(Database.java:471)
+	at org.h2.engine.SessionLocal.close(SessionLocal.java:892)
+	at org.h2.jdbc.JdbcConnection.close(JdbcConnection.java:391)
+	at com.zaxxer.hikari.pool.PoolBase.quietlyCloseConnection(PoolBase.java:137)
+	at com.zaxxer.hikari.pool.HikariPool.lambda$closeConnection$1(HikariPool.java:444)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-05-27 00:05:11.762837+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos ha sido cerrada
+The database has been closed [90098-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.engine.SessionLocal.getTransaction(SessionLocal.java:1610)
+	at org.h2.engine.SessionLocal.startStatementWithinTransaction(SessionLocal.java:1631)
+	at org.h2.command.Command.executeQuery(Command.java:186)
+	at org.h2.jdbc.JdbcConnection.isReadOnly(JdbcConnection.java:588)
+	at com.zaxxer.hikari.pool.PoolBase.setupConnection(PoolBase.java:403)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:733)
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:712)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.h2.mvstore.MVStoreException: Writing to sun.nio.ch.FileChannelImpl@6d271b0c failed; length 8192 at 32768 [2.2.224/2]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.DataUtils.writeFully(DataUtils.java:478)
+	at org.h2.mvstore.SingleFileStore.writeFully(SingleFileStore.java:67)
+	at org.h2.mvstore.SingleFileStore.writeFully(SingleFileStore.java:28)
+	at org.h2.mvstore.RandomAccessStore.writeChunk(RandomAccessStore.java:366)
+	at org.h2.mvstore.RandomAccessStore.writeChunk(RandomAccessStore.java:28)
+	at org.h2.mvstore.FileStore.storeBuffer(FileStore.java:1524)
+	at org.h2.mvstore.FileStore.lambda$serializeAndStore$3(FileStore.java:1432)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	... 4 more
+Caused by: java.io.IOException: El volumen para un archivo ha sido alterado externamente, por lo que el archivo abierto ya no es válido
+	at java.base/sun.nio.ch.FileDispatcherImpl.pwrite0(Native Method)
+	at java.base/sun.nio.ch.FileDispatcherImpl.pwrite(FileDispatcherImpl.java:81)
+	at java.base/sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:135)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:102)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:72)
+	at java.base/sun.nio.ch.FileChannelImpl.writeInternal(FileChannelImpl.java:1026)
+	at java.base/sun.nio.ch.FileChannelImpl.write(FileChannelImpl.java:1007)
+	at org.h2.mvstore.DataUtils.writeFully(DataUtils.java:474)
+	... 11 more
+2025-05-27 01:02:24.050427+02:00 database: close
+org.h2.message.DbException: IO Exception: "Closing"
+IO Exception: "Closing" [90028-224]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:374)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1293)
+	at org.h2.engine.Database.closeImpl(Database.java:1255)
+	at org.h2.engine.Database.close(Database.java:1174)
+	at org.h2.engine.Database.onShutdown(Database.java:1159)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing"
+IO Exception: "Closing" [90028-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: Could not sync file D:/ALMACEN/Akihabara_Market/data/akihabara_market_db.mv.db [2.2.224/2]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.SingleFileStore.sync(SingleFileStore.java:181)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:442)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:888)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:693)
+	at org.h2.mvstore.MVStore.close(MVStore.java:643)
+	at org.h2.mvstore.db.Store.close(Store.java:364)
+	... 6 more
+Caused by: java.io.IOException: El volumen para un archivo ha sido alterado externamente, por lo que el archivo abierto ya no es válido
+	at java.base/sun.nio.ch.FileDispatcherImpl.force0(Native Method)
+	at java.base/sun.nio.ch.FileDispatcherImpl.force(FileDispatcherImpl.java:93)
+	at java.base/sun.nio.ch.FileChannelImpl.force(FileChannelImpl.java:525)
+	at org.h2.mvstore.SingleFileStore.sync(SingleFileStore.java:179)
+	... 12 more

@@ -4,7 +4,7 @@
     <!--
     * @file index.html
     * @brief Página principal de la aplicación de Gestión de Inventario de Akihabara Market.
-    * @version 1.0
+    * @version 1.5 (Alerta Visual de Stock y Auto-eliminación de Mensajes)
     * @date 2024-05-26
     *
     * Este archivo HTML define la estructura principal de la interfaz de usuario.
@@ -19,97 +19,50 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9v-2h2v2zm0-4H9v-2h2v2zm0-4H9V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z' fill='%236C5CE7'/%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%236C5CE7' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9v-2h2v2zm0-4H9V7h2v6zm4 0h-2V7h2v6z'/%3E%3C/svg%3E" type="image/svg+xml">
+
 </head>
 <body>
-<header class="app-header">
-    <h1 class="app-title"><i class="fas fa-warehouse"></i> Akihabara Market - Gestión de Inventario</h1>
-</header>
-
 <div class="app-container">
-    <aside class="sidebar">
-        <nav class="sidebar-nav">
-            <ul>
-                <li id="dashboard-link" class="sidebar-nav-item active">
-                    <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
-                </li>
-                <li id="inventory-reports-link" class="sidebar-nav-item">
-                    <i class="fas fa-chart-line"></i> <span>Reportes de Inventario</span>
-                </li>
-            </ul>
-        </nav>
-    </aside>
+    <header class="app-header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="app-title">
+            <i class="fas fa-store"></i>
+            <h1>Akihabara Market</h1>
+        </div>
+    </header>
 
-    <main class="main-content">
-        <section id="dashboard-section" class="content-section">
-            <h2>Inventario de Productos</h2>
+    <div class="main-content">
+        <aside class="sidebar" id="sidebar">
+            <nav>
+                <ul>
+                    <li><a href="#" id="dashboardLink" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#" id="inventoryReportsLink"><i class="fas fa-chart-bar"></i> Informes de Inventario</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-            <div class="action-bar">
-                <div class="search-wrapper">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="search-input" class="search-input" placeholder="Buscar por nombre, categoría o proveedor...">
+        <main class="content-area">
+            <section id="dashboardSection" class="content-section">
+                <h2>Gestión de Productos</h2>
+
+                <div id="stockAlertsContainer" class="stock-alerts-container hidden">
                 </div>
-                <button class="btn btn-primary" id="add-product-btn"><i class="fas fa-plus-circle"></i> Agregar Nuevo Producto</button>
-                <button class="btn btn-edit" id="edit-product-btn" disabled><i class="fas fa-edit"></i> Editar Producto</button>
-                <button class="btn btn-danger" id="delete-product-btn" disabled><i class="fas fa-trash-alt"></i> Eliminar Producto</button>
-            </div>
 
-            <div class="table-container">
-                <table class="product-table">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Categoría</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th>Proveedor</th>
-                        <th>Stock Mínimo</th>
-                        <th>Última Reposición</th>
-                    </tr>
-                    </thead>
-                    <tbody id="product-list">
-                    </tbody>
-                </table>
-            </div>
-        </section>
+                <div class="action-bar">
+                    <div class="search-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Buscar por nombre o categoría...">
+                    </div>
+                    <div class="buttons-wrapper">
+                        <button class="btn btn-primary" id="addProductBtn"><i class="fas fa-plus-circle"></i> Añadir Producto</button>
+                        <button class="btn btn-secondary" id="editProductBtn" disabled><i class="fas fa-edit"></i> Editar Producto</button>
+                        <button class="btn btn-danger" id="deleteProductBtn" disabled><i class="fas fa-trash-alt"></i> Eliminar Producto</button>
+                    </div>
+                </div>
 
-        <section id="inventory-reports-section" class="content-section hidden">
-            <h2>Reportes de Inventario</h2>
-            <div class="report-filters card">
-                <h3>Filtros de Reporte</h3>
-                <form id="report-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="report-start-date">Fecha de Reposición (Desde):</label>
-                            <input type="date" id="report-start-date">
-                        </div>
-                        <div class="form-group">
-                            <label for="report-end-date">Fecha de Reposición (Hasta):</label>
-                            <input type="date" id="report-end-date">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="report-supplier">Proveedor:</label>
-                            <select id="report-supplier">
-                                <option value="">Cargando proveedores...</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="report-product-name">Nombre del Producto:</label>
-                            <input type="text" id="report-product-name" placeholder="Nombre del producto">
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-chart-bar"></i> Generar Reporte</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="report-results card">
-                <h3>Resultados del Reporte</h3>
-                <p id="report-status-message" class="status-message"></p>
                 <div class="table-container">
                     <table class="product-table">
                         <thead>
@@ -122,27 +75,96 @@
                             <th>Proveedor</th>
                             <th>Stock Mínimo</th>
                             <th>Última Reposición</th>
+                            <th class="actions">Acciones</th>
                         </tr>
                         </thead>
-                        <tbody id="report-product-list">
+                        <tbody id="productTableBody">
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
+
+            <section id="inventoryReportsSection" class="content-section hidden">
+                <h2>Informes de Inventario</h2>
+
+                <form id="reportForm" class="report-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reportCategory">Categoría:</label>
+                            <input type="text" id="reportCategory" placeholder="Ej: Figura">
+                        </div>
+                        <div class="form-group">
+                            <label for="reportMinStock">Stock Mínimo:</label>
+                            <input type="number" id="reportMinStock" min="0" placeholder="Ej: 10">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reportStartDate">Fecha Inicio Reposición:</label>
+                            <input type="date" id="reportStartDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="reportEndDate">Fecha Fin Reposición:</label>
+                            <input type="date" id="reportEndDate">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reportSupplier">Proveedor:</label>
+                            <select id="reportSupplier">
+                                <option value="">Todos los proveedores</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reportProductName">Nombre de Producto:</label>
+                            <input type="text" id="reportProductName" placeholder="Ej: Naruto Uzumaki">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-file-alt"></i> Generar Informe</button>
+                        <button type="button" class="btn btn-secondary" id="clearReportFiltersBtn"><i class="fas fa-eraser"></i> Limpiar Filtros</button>
+                        <button type="button" class="btn btn-secondary" id="downloadCsvBtn"><i class="fas fa-file-csv"></i> Descargar CSV</button>
+                    </div>
+                </form>
+
+                <div class="table-container">
+                    <table class="report-table" id="reportResultsTable">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Proveedor</th>
+                            <th>Stock Mínimo</th>
+                            <th>Última Reposición</th>
+                        </tr>
+                        </thead>
+                        <tbody id="reportTableBody">
+                        <tr class="no-results">
+                            <td colspan="8">Genera un informe para ver los resultados.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="app-footer">
+        <p>&copy; 2024 Akihabara Market. Todos los derechos reservados.</p>
+    </footer>
 </div>
 
-<div id="product-modal" class="modal">
+<div id="productModal" class="modal-overlay">
     <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <h3 id="form-title-modal">Agregar Nuevo Producto</h3>
-        <form id="product-form-modal">
-            <input type="hidden" id="product-id-modal">
-            <div class="form-group">
-                <label for="nombre-modal">Nombre:</label>
-                <input type="text" id="nombre-modal" required placeholder="Ej: Figura de Naruto">
-            </div>
+        <span class="close-button" id="closeModalBtn">&times;</span> <h3 id="modalTitle">Añadir Nuevo Producto</h3>
+        <form id="productForm">
+            <input type="hidden" id="productId"> <div class="form-group">
+            <label for="nombre-modal">Nombre:</label>
+            <input type="text" id="nombre-modal" required placeholder="Ej: Figura Naruto Uzumaki">
+        </div>
 
             <div class="form-group">
                 <label for="categoria-modal">Categoría:</label>
@@ -171,15 +193,17 @@
 
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
-                <button type="button" class="btn btn-secondary" id="cancel-modal-btn"><i class="fas fa-times-circle"></i> Cancelar</button>
+                <button type="button" class="btn btn-secondary" id="cancelModalBtn"><i class="fas fa-times-circle"></i> Cancelar</button>
             </div>
         </form>
     </div>
 </div>
 
-<footer class="app-footer">
-    <p>&copy; 2024 Akihabara Market. Todos los derechos reservados.</p>
-</footer>
+<div id="alertContainer" class="alert-container"></div>
+
+<button id="darkModeToggle" class="dark-mode-toggle">
+    <i class="fas fa-moon"></i>
+</button>
 
 <script src="script.js"></script>
 </body>

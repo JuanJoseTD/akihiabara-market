@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * Esta clase implementa {@link WebMvcConfigurer} para personalizar la configuración
  * de Spring MVC, en particular para habilitar la configuración de CORS (Cross-Origin Resource Sharing).
  *
- * @author [Tu Nombre/Nombre del Equipo]
+ * @author Juan J. Tornero
  * @version 1.0
  * @since 2024-05-26
  */
@@ -29,6 +29,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:8080", "http://127.0.0.1:5500") // Permite el origen de tu frontend (ajusta si lo ejecutas en otro puerto o dominio)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Métodos HTTP permitidos
                 .allowedHeaders("*") // Cabeceras permitidas
-                .allowCredentials(true); // Permitir el envío de cookies o credenciales (si fuera necesario)
+                .allowCredentials(true); // Permite el envío de credenciales (cookies, encabezados de autorización)
     }
 }

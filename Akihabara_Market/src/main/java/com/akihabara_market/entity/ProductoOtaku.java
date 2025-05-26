@@ -16,7 +16,7 @@ import java.time.LocalDate;
  * Esta clase es una entidad JPA y está mapeada a una tabla en la base de datos.
  * Incluye validaciones básicas para sus atributos y anotaciones para la documentación OpenAPI.
  *
- * @author [Tu Nombre/Nombre del Equipo]
+ * @author Juan J. Tornero
  * @version 1.0
  * @since 2024-05-26
  */
@@ -37,92 +37,78 @@ public class ProductoOtaku {
      * Nombre del producto.
      * Es un campo obligatorio y no puede estar en blanco.
      */
-    @NotBlank(message = "El nombre del producto es obligatorio")
-    @Schema(description = "Nombre del producto otaku", example = "Figura de Tanjiro")
+    @NotBlank(message = "El nombre del producto no puede estar en blanco")
+    @Schema(description = "Nombre del producto", example = "Figura Son Goku Super Saiyan")
     private String nombre;
 
     /**
-     * Categoría a la que pertenece el producto.
+     * Categoría del producto.
      * Es un campo obligatorio y no puede estar en blanco.
-     * Valores permitidos: Figura, Manga, Póster, Accesorio, Otro.
      */
-    @NotBlank(message = "La categoría del producto es obligatoria")
-    @Schema(description = "Categoría a la que pertenece el producto", example = "Figura", allowableValues = {"Figura", "Manga", "Póster", "Accesorio", "Otro"})
+    @NotBlank(message = "La categoría del producto no puede estar en blanco")
+    @Schema(description = "Categoría a la que pertenece el producto", example = "Figura")
     private String categoria;
 
     /**
-     * Precio de venta del producto.
-     * Es un campo obligatorio y debe ser un valor positivo o cero.
+     * Precio del producto.
+     * Debe ser un valor no nulo y mayor o igual a 0.
      */
-    @NotNull(message = "El precio del producto es obligatorio")
-    @Min(value = 0, message = "El precio debe ser un valor positivo")
-    @Schema(description = "Precio de venta del producto", example = "29.99")
+    @NotNull(message = "El precio no puede ser nulo")
+    @Min(value = 0, message = "El precio debe ser mayor o igual a 0")
+    @Schema(description = "Precio de venta del producto", example = "59.99")
     private Double precio;
 
     /**
-     * Cantidad de unidades disponibles en stock.
-     * Debe ser un valor positivo o cero.
+     * Cantidad de stock disponible del producto.
+     * Debe ser un valor no nulo y mayor o igual a 0.
      */
-    @NotNull(message = "El stock del producto es obligatorio")
-    @Min(value = 0, message = "El stock no puede ser negativo")
-    @Schema(description = "Cantidad de unidades disponibles en stock", example = "10")
+    @NotNull(message = "El stock no puede ser nulo")
+    @Min(value = 0, message = "El stock debe ser mayor o igual a 0")
+    @Schema(description = "Cantidad de unidades en stock", example = "25")
     private Integer stock;
 
     /**
-     * Proveedor del producto.
-     * Este campo es opcional.
+     * Nombre del proveedor del producto.
+     * Puede ser nulo.
      */
     @Schema(description = "Nombre del proveedor del producto", example = "Bandai Spirits", nullable = true)
     private String proveedor;
 
     /**
      * Nivel mínimo de stock para activar una alerta.
-     * Si el stock actual cae por debajo de este valor, se considera bajo. Este campo es opcional.
+     * Puede ser nulo. Si es nulo, no se considera para alertas de stock bajo.
      */
-    @Min(value = 0, message = "El nivel mínimo de stock no puede ser negativo")
-    @Schema(description = "Nivel de stock mínimo para generar una alerta de reposición", example = "5", nullable = true)
+    @Min(value = 0, message = "El nivel mínimo de stock debe ser mayor o igual a 0")
+    @Schema(description = "Nivel de stock por debajo del cual se considera 'stock bajo'", example = "5", nullable = true)
     private Integer nivelMinimoStock;
 
     /**
-     * Fecha de la última vez que se repuso el stock de este producto.
-     * Este campo es opcional y se puede gestionar automáticamente.
+     * Última fecha en que se realizó una reposición de este producto.
+     * Puede ser nulo.
      */
-    @Schema(description = "Fecha de la última reposición de este producto", example = "2024-03-15", nullable = true)
+    @Schema(description = "Fecha de la última reposición de stock (YYYY-MM-DD)", example = "2024-04-10", nullable = true)
     private LocalDate ultimaFechaReposicion;
 
     /**
-     * Constructor por defecto de {@link ProductoOtaku}.
+     * Constructor por defecto.
      */
     public ProductoOtaku() {
     }
 
     /**
-     * Constructor para crear una nueva instancia de {@link ProductoOtaku} con los atributos principales.
+     * Constructor con todos los campos.
      *
-     * @param nombre El nombre del producto.
-     * @param categoria La categoría del producto.
-     * @param precio El precio del producto.
-     * @param stock La cantidad de stock disponible.
+     * @param id Identificador único del producto.
+     * @param nombre Nombre del producto.
+     * @param categoria Categoría del producto.
+     * @param precio Precio del producto.
+     * @param stock Cantidad de stock disponible.
+     * @param proveedor Nombre del proveedor.
+     * @param nivelMinimoStock Nivel mínimo de stock para alerta.
+     * @param ultimaFechaReposicion Última fecha de reposición.
      */
-    public ProductoOtaku(String nombre, String categoria, Double precio, Integer stock) {
-        this.nombre = nombre;
-        this.categoria = categoria;
-        this.precio = precio;
-        this.stock = stock;
-    }
-
-    /**
-     * Constructor completo para crear una nueva instancia de {@link ProductoOtaku}.
-     *
-     * @param nombre El nombre del producto.
-     * @param categoria La categoría del producto.
-     * @param precio El precio del producto.
-     * @param stock La cantidad de stock disponible.
-     * @param proveedor El proveedor del producto.
-     * @param nivelMinimoStock El nivel mínimo de stock para alerta.
-     * @param ultimaFechaReposicion La fecha de la última reposición.
-     */
-    public ProductoOtaku(String nombre, String categoria, Double precio, Integer stock, String proveedor, Integer nivelMinimoStock, LocalDate ultimaFechaReposicion) {
+    public ProductoOtaku(Long id, String nombre, String categoria, Double precio, Integer stock, String proveedor, Integer nivelMinimoStock, LocalDate ultimaFechaReposicion) {
+        this.id = id;
         this.nombre = nombre;
         this.categoria = categoria;
         this.precio = precio;
@@ -132,10 +118,10 @@ public class ProductoOtaku {
         this.ultimaFechaReposicion = ultimaFechaReposicion;
     }
 
-    // Getters y Setters
+    // --- Getters y Setters ---
 
     /**
-     * Obtiene el ID del producto.
+     * Obtiene el identificador único del producto.
      * @return El ID del producto.
      */
     public Long getId() {
@@ -143,7 +129,7 @@ public class ProductoOtaku {
     }
 
     /**
-     * Establece el ID del producto.
+     * Establece el identificador único del producto.
      * @param id El nuevo ID del producto.
      */
     public void setId(Long id) {
@@ -199,32 +185,32 @@ public class ProductoOtaku {
     }
 
     /**
-     * Obtiene el stock del producto.
-     * @return El stock actual del producto.
+     * Obtiene la cantidad de stock del producto.
+     * @return La cantidad de stock.
      */
     public Integer getStock() {
         return stock;
     }
 
     /**
-     * Establece el stock del producto.
-     * @param stock El nuevo stock del producto.
+     * Establece la cantidad de stock del producto.
+     * @param stock La nueva cantidad de stock.
      */
     public void setStock(Integer stock) {
         this.stock = stock;
     }
 
     /**
-     * Obtiene el proveedor del producto.
-     * @return El proveedor del producto.
+     * Obtiene el nombre del proveedor del producto.
+     * @return El nombre del proveedor.
      */
     public String getProveedor() {
         return proveedor;
     }
 
     /**
-     * Establece el proveedor del producto.
-     * @param proveedor El nuevo proveedor del producto.
+     * Establece el nombre del proveedor del producto.
+     * @param proveedor El nuevo nombre del proveedor.
      */
     public void setProveedor(String proveedor) {
         this.proveedor = proveedor;
@@ -232,7 +218,7 @@ public class ProductoOtaku {
 
     /**
      * Obtiene el nivel mínimo de stock del producto.
-     * @return El nivel mínimo de stock para alerta.
+     * @return El nivel mínimo de stock.
      */
     public Integer getNivelMinimoStock() {
         return nivelMinimoStock;

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * incluyendo información sobre el título, versión, descripción, términos de servicio,
  * contacto y licencia.
  *
- * @author [Tu Nombre/Nombre del Equipo]
+ * @author Juan J. Tornero
  * @version 1.0
  * @since 2024-05-26
  */
