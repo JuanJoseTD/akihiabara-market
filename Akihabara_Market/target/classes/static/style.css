@@ -1,0 +1,596 @@
+/*
+ * @file style.css
+ * @brief Hoja de estilos CSS para la aplicación de Gestión de Inventario de Akihabara Market.
+ * @version 1.0
+ * @date 2024-05-26
+ *
+ * Este archivo define la apariencia visual de la aplicación, incluyendo la paleta de colores,
+ * tipografía, diseño de componentes (cabecera, sidebar, tablas, formularios, modal) y
+ * reglas de responsividad para diferentes tamaños de pantalla.
+ */
+
+/* Variables CSS para colores y tipografía */
+:root {
+    /* Colores principales de la marca */
+    --primary-color: #6C5CE7; /* Un morado vibrante, moderno y profesional */
+    --primary-dark: #5A4AD4;  /* Tono más oscuro del primario */
+    --secondary-color: #00BFB2; /* Un turquesa para acciones secundarias y acentos */
+    --accent-color: #FF7043; /* Naranja para resaltar, advertencias */
+    --danger-color: #EF5350; /* Rojo suave para eliminar/errores */
+
+    /* Colores de texto */
+    --text-color-dark: #333;   /* Texto oscuro para contenido principal */
+    --text-color-light: #666;  /* Texto más claro para detalles o etiquetas */
+    --text-color-white: #fff;  /* Texto blanco para fondos oscuros */
+
+    /* Colores de fondo y tarjetas */
+    --background-color: #f4f7f6; /* Fondo muy claro y suave de la aplicación */
+    --card-background: #ffffff; /* Fondo para tarjetas y secciones principales */
+    --border-color: #e0e0e0;    /* Bordes suaves para elementos */
+    --hover-bg: #f9f9f9;        /* Fondo claro para estados de hover */
+
+    /* Colores del sidebar */
+    --sidebar-bg: #2C3E50;          /* Gris oscuro azulado para el sidebar */
+    --sidebar-text: #ECF0F1;        /* Texto claro en el sidebar */
+    --sidebar-active-bg: #4A6572;   /* Tono de gris azulado más claro para elemento activo del sidebar */
+    --sidebar-active-color: #fff;   /* Color de texto para elemento activo del sidebar */
+
+    /* Tipografía */
+    --font-family: 'Inter', sans-serif; /* Fuente principal de la aplicación */
+
+    /* Sombras */
+    --box-shadow-light: 0 4px 10px rgba(0, 0, 0, 0.05);   /* Sombra ligera para elementos */
+    --box-shadow-medium: 0 6px 15px rgba(0, 0, 0, 0.1);  /* Sombra media para contenedores principales */
+}
+
+/* Estilos Generales del cuerpo de la página */
+body {
+    font-family: var(--font-family); /* Aplica la fuente definida */
+    margin: 0; /* Elimina el margen predeterminado del navegador */
+    padding: 0; /* Elimina el padding predeterminado del navegador */
+    background-color: var(--background-color); /* Color de fondo general */
+    color: var(--text-color-dark); /* Color de texto predeterminado */
+    line-height: 1.6; /* Altura de línea para mejor legibilidad */
+    display: flex; /* Utiliza flexbox para organizar el contenido */
+    flex-direction: column; /* Organiza los elementos en una columna */
+    min-height: 100vh; /* Asegura que el cuerpo ocupe al menos el 100% de la altura de la ventana */
+}
+
+/* Estilos de la cabecera de la aplicación */
+.app-header {
+    background-color: var(--primary-dark); /* Color de fondo de la cabecera */
+    color: var(--text-color-white); /* Color de texto de la cabecera */
+    padding: 20px 30px; /* Espaciado interno */
+    text-align: center; /* Alineación del texto */
+    box-shadow: var(--box-shadow-light); /* Sombra ligera */
+    display: flex; /* Habilita flexbox para centrar el título y el icono */
+    align-items: center; /* Alinea verticalmente al centro */
+    justify-content: center; /* Alinea horizontalmente al centro */
+    gap: 15px; /* Espacio entre el icono y el título */
+}
+
+/* Estilos del título de la aplicación */
+.app-title {
+    margin: 0; /* Elimina el margen predeterminado */
+    font-size: 1.8em; /* Tamaño de fuente */
+    font-weight: 700; /* Grosor de la fuente */
+}
+
+/* Estilos del icono dentro del título de la aplicación */
+.app-title i {
+    margin-right: 10px; /* Margen a la derecha del icono */
+    color: var(--secondary-color); /* Color del icono */
+}
+
+/* Contenedor principal de la aplicación (sidebar + contenido) */
+.app-container {
+    display: flex; /* Utiliza flexbox para el diseño de dos columnas */
+    flex: 1; /* Permite que el contenedor se expanda para llenar el espacio disponible */
+    max-width: 1400px; /* Ancho máximo del contenedor */
+    width: 100%; /* Ocupa el 100% del ancho disponible hasta el max-width */
+    margin: 20px auto; /* Margen superior/inferior y centrado horizontal */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Asegura que el contenido dentro no se desborde, útil para bordes redondeados */
+    box-shadow: var(--box-shadow-medium); /* Sombra media */
+    background-color: var(--card-background); /* Color de fondo */
+}
+
+/* Estilos del Sidebar (barra lateral de navegación) */
+.sidebar {
+    width: 250px; /* Ancho fijo del sidebar */
+    background-color: var(--sidebar-bg); /* Color de fondo del sidebar */
+    color: var(--sidebar-text); /* Color de texto del sidebar */
+    padding: 20px 0; /* Espaciado interno */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra a la derecha */
+    display: flex; /* Habilita flexbox */
+    flex-direction: column; /* Organiza los elementos en columna */
+}
+
+/* Estilos de la lista de navegación del sidebar */
+.sidebar-nav ul {
+    list-style: none; /* Elimina los puntos de la lista */
+    padding: 0; /* Elimina el padding predeterminado */
+    margin: 0; /* Elimina el margen predeterminado */
+}
+
+/* Estilos de los elementos de navegación del sidebar */
+.sidebar-nav-item {
+    padding: 15px 25px; /* Espaciado interno */
+    display: flex; /* Habilita flexbox para icono y texto */
+    align-items: center; /* Alinea verticalmente al centro */
+    gap: 15px; /* Espacio entre icono y texto */
+    cursor: pointer; /* Cambia el cursor a puntero al pasar por encima */
+    transition: background-color 0.2s ease, color 0.2s ease; /* Transición suave en hover */
+    font-weight: 600; /* Grosor de la fuente */
+}
+
+/* Estilos de los iconos dentro de los elementos de navegación del sidebar */
+.sidebar-nav-item i {
+    font-size: 1.2em; /* Tamaño del icono */
+    color: var(--sidebar-text); /* Color del icono */
+}
+
+/* Estilos del elemento de navegación activo en el sidebar */
+.sidebar-nav-item.active {
+    background-color: var(--sidebar-active-bg); /* Color de fondo para el elemento activo */
+    color: var(--sidebar-active-color); /* Color de texto para el elemento activo */
+}
+
+/* Estilos de hover para elementos no activos del sidebar */
+.sidebar-nav-item:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semitransparente en hover */
+}
+
+/* Estilos del contenido principal */
+.main-content {
+    flex: 1; /* Permite que el contenido principal ocupe el espacio restante */
+    padding: 30px; /* Espaciado interno */
+    background-color: var(--background-color); /* Color de fondo */
+}
+
+/* Estilos de las secciones de contenido (Dashboard, Reportes) */
+.content-section {
+    background-color: var(--card-background); /* Fondo de tarjeta */
+    padding: 25px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: var(--box-shadow-light); /* Sombra ligera */
+}
+
+/* Estilos de los títulos de sección (h2) */
+.content-section h2 {
+    color: var(--primary-dark); /* Color del título */
+    margin-top: 0; /* Elimina margen superior */
+    margin-bottom: 25px; /* Margen inferior */
+    font-size: 1.6em; /* Tamaño de fuente */
+    border-bottom: 2px solid var(--border-color); /* Borde inferior */
+    padding-bottom: 15px; /* Padding inferior para el borde */
+}
+
+/* Barra de acciones (botones de agregar/editar/eliminar y búsqueda) */
+.action-bar {
+    display: flex; /* Habilita flexbox para organizar los elementos */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    gap: 15px; /* Espacio entre los elementos */
+    margin-bottom: 25px; /* Margen inferior */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+}
+
+/* Contenedor para el input de búsqueda con icono */
+.search-wrapper {
+    position: relative; /* Permite posicionar el icono dentro */
+    flex-grow: 1; /* Permite que la barra de búsqueda ocupe el espacio disponible */
+    min-width: 250px; /* Ancho mínimo para el input de búsqueda */
+}
+
+/* Estilos del input de búsqueda */
+.search-input {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    padding: 12px 15px 12px 45px; /* Padding, dejando espacio para el icono */
+    border: 1px solid var(--border-color); /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 1em; /* Tamaño de fuente */
+    transition: border-color 0.3s ease; /* Transición suave del color del borde */
+}
+
+/* Estilos del input de búsqueda al enfocar */
+.search-input:focus {
+    outline: none; /* Elimina el contorno predeterminado */
+    border-color: var(--primary-color); /* Cambia el color del borde */
+    box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2); /* Sombra al enfocar */
+}
+
+/* Estilos del icono de búsqueda */
+.search-icon {
+    position: absolute; /* Posicionamiento absoluto dentro de .search-wrapper */
+    left: 15px; /* Posición desde la izquierda */
+    top: 50%; /* Centrado vertical */
+    transform: translateY(-50%); /* Ajuste fino para centrado vertical */
+    color: var(--text-color-light); /* Color del icono */
+    font-size: 1.1em; /* Tamaño del icono */
+}
+
+/* Estilos generales de los botones */
+.btn {
+    padding: 12px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor a puntero */
+    font-size: 0.95em; /* Tamaño de fuente */
+    font-weight: 600; /* Grosor de la fuente */
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Transiciones suaves */
+    display: flex; /* Habilita flexbox para alinear icono y texto */
+    align-items: center; /* Alinea verticalmente al centro */
+    gap: 8px; /* Espacio entre icono y texto */
+}
+
+/* Estilos de los iconos dentro de los botones */
+.btn i {
+    font-size: 1.1em; /* Tamaño del icono */
+}
+
+/* Botón primario */
+.btn-primary {
+    background-color: var(--primary-color); /* Color de fondo */
+    color: var(--text-color-white); /* Color de texto */
+}
+
+/* Botón primario en hover */
+.btn-primary:hover {
+    background-color: var(--primary-dark); /* Color de fondo más oscuro */
+    transform: translateY(-1px); /* Ligero desplazamiento hacia arriba */
+}
+
+/* Botón secundario */
+.btn-secondary {
+    background-color: #e0e0e0; /* Color de fondo */
+    color: var(--text-color-dark); /* Color de texto */
+}
+
+/* Botón secundario en hover */
+.btn-secondary:hover {
+    background-color: #d0d0d0; /* Color de fondo más oscuro */
+    transform: translateY(-1px); /* Ligero desplazamiento hacia arriba */
+}
+
+/* Botón de edición */
+.btn-edit {
+    background-color: var(--accent-color); /* Color de fondo */
+    color: var(--text-color-white); /* Color de texto */
+}
+
+/* Botón de edición en hover (si no está deshabilitado) */
+.btn-edit:hover:not(:disabled) {
+    background-color: #e6663c; /* Color de fondo más oscuro */
+    transform: translateY(-1px); /* Ligero desplazamiento hacia arriba */
+}
+
+/* Botón de peligro (eliminar) */
+.btn-danger {
+    background-color: var(--danger-color); /* Color de fondo */
+    color: var(--text-color-white); /* Color de texto */
+}
+
+/* Botón de peligro en hover (si no está deshabilitado) */
+.btn-danger:hover:not(:disabled) {
+    background-color: #d8433c; /* Color de fondo más oscuro */
+    transform: translateY(-1px); /* Ligero desplazamiento hacia arriba */
+}
+
+/* Estilos para botones deshabilitados */
+.btn:disabled {
+    opacity: 0.6; /* Menor opacidad */
+    cursor: not-allowed; /* Cursor de no permitido */
+    background-color: #cccccc !important; /* Anula el color de fondo en hover */
+    transform: none !important; /* Anula la transformación en hover */
+}
+
+/* Contenedor para tablas (permite scroll horizontal) */
+.table-container {
+    overflow-x: auto; /* Habilita el scroll horizontal si el contenido de la tabla es demasiado ancho */
+    width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+/* Estilos generales de la tabla de productos */
+.product-table {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    border-collapse: collapse; /* Colapsa los bordes de las celdas */
+    margin-top: 20px; /* Margen superior */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra ligera */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Asegura que las esquinas redondeadas se apliquen a la tabla */
+}
+
+/* Estilos de las cabeceras y celdas de la tabla */
+.product-table th, .product-table td {
+    border: 1px solid var(--border-color); /* Borde de celda */
+    padding: 15px; /* Espaciado interno */
+    text-align: left; /* Alineación del texto a la izquierda */
+    font-size: 0.9em; /* Tamaño de fuente */
+}
+
+/* Estilos específicos de las cabeceras de la tabla */
+.product-table th {
+    background-color: var(--primary-color); /* Color de fondo de la cabecera */
+    color: var(--text-color-white); /* Color de texto de la cabecera */
+    font-weight: 600; /* Grosor de la fuente */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 0.05em; /* Espaciado entre letras */
+}
+
+/* Estilos para filas pares en la tabla (alternar colores) */
+.product-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8; /* Color de fondo para filas pares */
+}
+
+/* Estilos de hover para filas de la tabla (si no están seleccionadas) */
+.product-table tbody tr:hover:not(.selected) {
+    background-color: var(--hover-bg); /* Cambia el fondo en hover */
+    cursor: pointer; /* Cambia el cursor a puntero */
+}
+
+/* Estilos para la fila de la tabla seleccionada */
+.product-table tbody tr.selected {
+    background-color: var(--hover-bg); /* Fondo para la fila seleccionada */
+    outline: 2px solid var(--primary-color); /* Borde para resaltar la selección */
+    box-shadow: inset 0 0 0 2px var(--primary-color); /* Sutil sombra interna para resaltar */
+}
+
+/* Estilo para productos con stock bajo */
+.low-stock {
+    color: var(--danger-color); /* Color de texto rojo */
+    font-weight: 700; /* Grosor de fuente en negrita */
+}
+
+/* Estilo para mensajes de "No resultados" en tablas */
+.no-results {
+    text-align: center; /* Centra el texto */
+    padding: 20px; /* Espaciado interno */
+    color: var(--text-color-light); /* Color de texto más claro */
+    font-style: italic; /* Texto en cursiva */
+}
+
+/* Estilos de la Modal (ventana emergente) */
+.modal {
+    display: none; /* Ocultar por defecto */
+    position: fixed; /* Posición fija en la pantalla */
+    z-index: 1000; /* Estar por encima de otros elementos */
+    left: 0; /* Posición desde la izquierda */
+    top: 0; /* Posición desde la parte superior */
+    width: 100%; /* Ocupa todo el ancho */
+    height: 100%; /* Ocupa toda la altura */
+    overflow: auto; /* Habilitar scroll si el contenido es demasiado grande */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente oscuro */
+    display: flex; /* Usar flexbox para centrar contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    padding: 20px; /* Padding para evitar que el modal toque los bordes */
+}
+
+/* Contenido de la Modal */
+.modal-content {
+    background-color: var(--card-background); /* Color de fondo */
+    margin: auto; /* Centrar horizontalmente */
+    padding: 30px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: var(--box-shadow-medium); /* Sombra */
+    width: 90%; /* Ancho responsivo */
+    max-width: 500px; /* Ancho máximo para el modal */
+    position: relative; /* Para posicionar el botón de cierre */
+    animation: fadeIn 0.3s ease-out; /* Animación de aparición */
+}
+
+/* Título de la modal */
+.modal-content h3 {
+    color: var(--primary-dark); /* Color del título */
+    margin-top: 0; /* Elimina margen superior */
+    margin-bottom: 25px; /* Margen inferior */
+    text-align: center; /* Centra el texto */
+    font-size: 1.4em; /* Tamaño de fuente */
+    border-bottom: 1px solid var(--border-color); /* Borde inferior */
+    padding-bottom: 15px; /* Padding inferior para el borde */
+}
+
+/* Botón de cierre de la modal */
+.close-button {
+    color: var(--text-color-light); /* Color del icono */
+    font-size: 28px; /* Tamaño de fuente */
+    font-weight: bold; /* Grosor de la fuente */
+    position: absolute; /* Posicionamiento absoluto */
+    top: 15px; /* Posición desde la parte superior */
+    right: 25px; /* Posición desde la derecha */
+    cursor: pointer; /* Cambia el cursor a puntero */
+    transition: color 0.2s ease; /* Transición suave del color */
+}
+
+/* Botón de cierre de la modal en hover/focus */
+.close-button:hover,
+.close-button:focus {
+    color: var(--danger-color); /* Cambia el color a rojo */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilos de grupos de formulario (aplicados a la modal y sección de reportes) */
+.form-group {
+    margin-bottom: 20px; /* Margen inferior */
+}
+
+/* Estilos de las etiquetas de formulario */
+.form-group label {
+    display: block; /* Ocupa todo el ancho */
+    margin-bottom: 8px; /* Margen inferior */
+    font-weight: 600; /* Grosor de la fuente */
+    color: var(--text-color-light); /* Color de texto */
+}
+
+/* Estilos de los inputs de texto, número, fecha y select en formularios */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group select {
+    width: calc(100% - 24px); /* Ancho completo menos padding */
+    padding: 12px; /* Espaciado interno */
+    border: 1px solid var(--border-color); /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 1em; /* Tamaño de fuente */
+    box-sizing: border-box; /* Incluye padding en el ancho */
+    transition: border-color 0.3s ease; /* Transición suave del color del borde */
+}
+
+/* Estilos de los inputs y selects al enfocar */
+.form-group input:focus,
+.form-group select:focus {
+    outline: none; /* Elimina el contorno predeterminado */
+    border-color: var(--primary-color); /* Cambia el color del borde */
+    box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2); /* Sombra al enfocar */
+}
+
+/* Estilos de la barra de acciones dentro de formularios */
+.form-actions {
+    display: flex; /* Habilita flexbox */
+    justify-content: flex-end; /* Alinea los elementos a la derecha */
+    gap: 15px; /* Espacio entre los elementos */
+    margin-top: 30px; /* Margen superior */
+}
+
+/* Estilos específicos de los filtros de reportes */
+.report-filters {
+    margin-bottom: 30px; /* Margen inferior */
+}
+
+/* Título de los filtros de reportes */
+.report-filters h3 {
+    margin-bottom: 20px; /* Margen inferior */
+    color: var(--primary-dark); /* Color del título */
+    font-size: 1.3em; /* Tamaño de fuente */
+}
+
+/* Filas de formulario dentro de los filtros de reportes */
+.report-form .form-row {
+    display: flex; /* Habilita flexbox */
+    gap: 20px; /* Espacio entre los elementos */
+    margin-bottom: 20px; /* Margen inferior */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+}
+
+/* Grupos de formulario dentro de las filas de reportes */
+.report-form .form-row .form-group {
+    flex: 1; /* Permite que los grupos se expandan */
+    min-width: 250px; /* Asegura un ancho mínimo para los inputs */
+}
+
+/* Acciones del formulario de reportes (botones) */
+.report-form .form-actions {
+    justify-content: center; /* Centra el botón de generar reporte */
+}
+
+/* Resultados del reporte */
+.report-results {
+    margin-top: 30px; /* Margen superior */
+}
+
+/* Ocultar secciones por defecto */
+.content-section.hidden {
+    display: none; /* Oculta la sección */
+}
+
+/* Estilo para el mensaje de estado en reportes (ej. "Generando reporte...") */
+.status-message {
+    text-align: center; /* Centra el texto */
+    padding: 15px; /* Espaciado interno */
+    background-color: #e0f2f7; /* Color de fondo azul claro */
+    border-left: 5px solid var(--accent-color); /* Borde izquierdo con color de acento */
+    margin-bottom: 20px; /* Margen inferior */
+    color: var(--text-color-dark); /* Color de texto */
+    font-size: 1.1em; /* Tamaño de fuente */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+/* Pie de página de la aplicación */
+.app-footer {
+    background-color: var(--sidebar-bg); /* Color de fondo del sidebar */
+    color: var(--sidebar-text); /* Color de texto del sidebar */
+    text-align: center; /* Centra el texto */
+    padding: 18px 0; /* Espaciado interno */
+    margin-top: auto; /* Empuja el footer al final de la página */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05); /* Sombra superior */
+    font-size: 0.9em; /* Tamaño de fuente */
+}
+
+/* Animación de aparición (fadeIn) */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); } /* Inicia invisible y ligeramente arriba */
+    to { opacity: 1; transform: translateY(0); } /* Termina visible en su posición */
+}
+
+/* Media Queries para Responsividad (para pantallas medianas) */
+@media (max-width: 992px) {
+    .app-container {
+        flex-direction: column; /* Cambia a diseño de una columna */
+        margin: 15px; /* Margen reducido */
+        padding: 0; /* Sin padding */
+    }
+    .sidebar {
+        width: 100%; /* Ocupa todo el ancho */
+        padding: 15px 0; /* Padding ajustado */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra inferior */
+        border-radius: 0; /* Sin bordes redondeados */
+    }
+    .sidebar-nav ul {
+        display: flex; /* Habilita flexbox para la lista de navegación */
+        justify-content: center; /* Centra los elementos */
+        gap: 10px; /* Espacio entre elementos */
+        flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+    }
+    .sidebar-nav-item {
+        padding: 12px 20px; /* Padding ajustado */
+    }
+    .main-content {
+        padding: 20px; /* Padding ajustado */
+    }
+    .action-bar {
+        flex-direction: column; /* Cambia a diseño de columna */
+        align-items: stretch; /* Estira los elementos para ocupar el ancho */
+    }
+    .action-bar .search-wrapper {
+        min-width: 100%; /* Ocupa todo el ancho */
+    }
+    .action-bar .btn {
+        width: 100%; /* Ocupa todo el ancho */
+        justify-content: center; /* Centra el contenido del botón */
+    }
+    .product-table th, .product-table td {
+        padding: 12px 10px; /* Padding ajustado */
+        font-size: 0.85em; /* Tamaño de fuente ajustado */
+    }
+    .report-form .form-row {
+        flex-direction: column; /* Cambia a diseño de columna */
+        gap: 15px; /* Espacio ajustado */
+    }
+}
+
+/* Media Queries para Responsividad (para pantallas pequeñas, móviles) */
+@media (max-width: 576px) {
+    .app-title {
+        font-size: 1.4em; /* Tamaño de fuente más pequeño */
+        flex-direction: column; /* Título y icono en columna */
+        gap: 5px; /* Espacio ajustado */
+    }
+    .app-header {
+        padding: 15px; /* Padding reducido */
+    }
+    .modal-content {
+        padding: 20px; /* Padding reducido */
+        width: 95%; /* Ancho más amplio */
+    }
+    .close-button {
+        top: 10px; /* Posición ajustada */
+        right: 15px; /* Posición ajustada */
+    }
+    .form-actions {
+        flex-direction: column; /* Botones en columna */
+        gap: 10px; /* Espacio ajustado */
+    }
+    .btn {
+        padding: 10px 15px; /* Padding reducido */
+    }
+}

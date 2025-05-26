@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!--
+    * @file index.html
+    * @brief Página principal de la aplicación de Gestión de Inventario de Akihabara Market.
+    * @version 1.0
+    * @date 2024-05-26
+    *
+    * Este archivo HTML define la estructura principal de la interfaz de usuario.
+    * Incluye la cabecera, el menú lateral de navegación, las secciones de contenido
+    * (Dashboard e Informes), un modal para la gestión de productos y el pie de página.
+    * Utiliza CSS para el estilo y JavaScript para la interactividad.
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akihabara Market - Gestión de Inventario</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15H9v-2h2v2zm0-4H9v-2h2v2zm0-4H9V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z' fill='%236C5CE7'/%3E%3C/svg%3E" type="image/svg+xml">
+</head>
+<body>
+<header class="app-header">
+    <h1 class="app-title"><i class="fas fa-warehouse"></i> Akihabara Market - Gestión de Inventario</h1>
+</header>
+
+<div class="app-container">
+    <aside class="sidebar">
+        <nav class="sidebar-nav">
+            <ul>
+                <li id="dashboard-link" class="sidebar-nav-item active">
+                    <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
+                </li>
+                <li id="inventory-reports-link" class="sidebar-nav-item">
+                    <i class="fas fa-chart-line"></i> <span>Reportes de Inventario</span>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <section id="dashboard-section" class="content-section">
+            <h2>Inventario de Productos</h2>
+
+            <div class="action-bar">
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" class="search-input" placeholder="Buscar por nombre, categoría o proveedor...">
+                </div>
+                <button class="btn btn-primary" id="add-product-btn"><i class="fas fa-plus-circle"></i> Agregar Nuevo Producto</button>
+                <button class="btn btn-edit" id="edit-product-btn" disabled><i class="fas fa-edit"></i> Editar Producto</button>
+                <button class="btn btn-danger" id="delete-product-btn" disabled><i class="fas fa-trash-alt"></i> Eliminar Producto</button>
+            </div>
+
+            <div class="table-container">
+                <table class="product-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Proveedor</th>
+                        <th>Stock Mínimo</th>
+                        <th>Última Reposición</th>
+                    </tr>
+                    </thead>
+                    <tbody id="product-list">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="inventory-reports-section" class="content-section hidden">
+            <h2>Reportes de Inventario</h2>
+            <div class="report-filters card">
+                <h3>Filtros de Reporte</h3>
+                <form id="report-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="report-start-date">Fecha de Reposición (Desde):</label>
+                            <input type="date" id="report-start-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="report-end-date">Fecha de Reposición (Hasta):</label>
+                            <input type="date" id="report-end-date">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="report-supplier">Proveedor:</label>
+                            <select id="report-supplier">
+                                <option value="">Cargando proveedores...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="report-product-name">Nombre del Producto:</label>
+                            <input type="text" id="report-product-name" placeholder="Nombre del producto">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-chart-bar"></i> Generar Reporte</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="report-results card">
+                <h3>Resultados del Reporte</h3>
+                <p id="report-status-message" class="status-message"></p>
+                <div class="table-container">
+                    <table class="product-table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Proveedor</th>
+                            <th>Stock Mínimo</th>
+                            <th>Última Reposición</th>
+                        </tr>
+                        </thead>
+                        <tbody id="report-product-list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<div id="product-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h3 id="form-title-modal">Agregar Nuevo Producto</h3>
+        <form id="product-form-modal">
+            <input type="hidden" id="product-id-modal">
+            <div class="form-group">
+                <label for="nombre-modal">Nombre:</label>
+                <input type="text" id="nombre-modal" required placeholder="Ej: Figura de Naruto">
+            </div>
+
+            <div class="form-group">
+                <label for="categoria-modal">Categoría:</label>
+                <input type="text" id="categoria-modal" required placeholder="Ej: Figura, Manga, Póster">
+            </div>
+
+            <div class="form-group">
+                <label for="precio-modal">Precio:</label>
+                <input type="number" id="precio-modal" step="0.01" min="0" required placeholder="Ej: 45.99">
+            </div>
+
+            <div class="form-group">
+                <label for="stock-modal">Stock:</label>
+                <input type="number" id="stock-modal" min="0" required placeholder="Ej: 20">
+            </div>
+
+            <div class="form-group">
+                <label for="proveedor-modal">Proveedor:</label>
+                <input type="text" id="proveedor-modal" placeholder="Ej: Bandai Spirits">
+            </div>
+
+            <div class="form-group">
+                <label for="nivelMinimoStock-modal">Stock Mínimo Alerta:</label>
+                <input type="number" id="nivelMinimoStock-modal" min="0" placeholder="Ej: 5">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
+                <button type="button" class="btn btn-secondary" id="cancel-modal-btn"><i class="fas fa-times-circle"></i> Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer class="app-footer">
+    <p>&copy; 2024 Akihabara Market. Todos los derechos reservados.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
